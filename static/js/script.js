@@ -10,4 +10,18 @@ document.addEventListener('DOMContentLoaded', function () {
     let tooltips = document.querySelectorAll('.tooltipped');
     let tooltipsInstance = M.Tooltip.init(tooltips);
 
+    let selects = document.querySelectorAll("select");
+    let selectsInstance = M.FormSelect.init(selects);
+
+    let datepickers = document.querySelectorAll(".datepicker");
+    let datepickersInstance = M.Datepicker.init(datepickers, {
+        format: "dd mmmm, yyyy",
+        yearRange: 3,
+        showClearBtn: true,
+        i18n: {
+            done: "Select"
+        }
+    });
 });
+
+
