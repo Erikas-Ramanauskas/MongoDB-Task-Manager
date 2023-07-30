@@ -164,6 +164,21 @@ def add_category():
     return render_template("add_category.html")
 
 
+@app.route("/edit_category/<category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    if request.method == "POST":
+        category = {
+            "category_name": request.form.get("category_name"),
+        }
+        # use replace_one instead of update_one
+        mongo.db.categories.replace_one(
+            {"_id": ObjectId(category_id)}, category)
+        flash("Category Successfully Updated")
+
+    category = mongo.db.categories.find_one({"_id": ObjectId(category_id)})
+    return render_template("edit_category.html", category=category)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
